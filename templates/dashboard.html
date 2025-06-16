@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Académico Interactivo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-graduation-cap me-2"></i>Dashboard Académico
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button id="themeToggle" class="btn btn-outline-light">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            <i class="fas fa-calendar-alt me-1"></i>
+                            <span id="currentDate"></span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container-fluid py-4">
+        <!-- Resumen estadístico -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card stat-card animate__animated animate__fadeInLeft bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Estudiantes</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 id="totalEstudiantes" class="mb-0">0</h2>
+                            <i class="fas fa-users fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card animate__animated animate__fadeInLeft bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Cursos Activos</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 id="totalCursos" class="mb-0">0</h2>
+                            <i class="fas fa-book fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card animate__animated animate__fadeInRight bg-warning text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Promedio General</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 id="promedioGeneral" class="mb-0">0.0</h2>
+                            <i class="fas fa-chart-line fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card animate__animated animate__fadeInRight bg-danger text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Tasa Aprobación</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 id="tasaAprobacion" class="mb-0">0%</h2>
+                            <i class="fas fa-percentage fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primera fila de gráficos -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm animate__animated animate__fadeIn">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>Distribución por Carrera
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="carreraChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm animate__animated animate__fadeIn">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-trophy me-2"></i>Top 3 Estudiantes
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="topEstudiantes" class="table-responsive">
+                            <!-- Tabla se llenará con JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda fila de gráficos -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm animate__animated animate__fadeIn">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-pie me-2"></i>Distribución por Semestre
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="semestreChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm animate__animated animate__fadeIn">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-area me-2"></i>Rendimiento por Curso
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="rendimientoChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Tercera fila de gráficos -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm animate__animated animate__fadeIn">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chalkboard-teacher me-2"></i>Cursos por Profesor
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="profesoresCursosChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- Tabla de todos los datos -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm animate__animated animate__fadeInUp">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-table me-2"></i>Datos Académicos Completos
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="tablaDatos" class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Estudiante</th>
+                                        <th>Carrera</th>
+                                        <th>Curso</th>
+                                        <th>Profesor</th>
+                                        <th>Nota</th>
+                                        <th>Semestre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Datos se cargarán con JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-university me-2"></i>Sistema Académico</h5>
+                    <p class="mb-0">Dashboard interactivo para análisis de rendimiento estudiantil</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Actualizado: <span id="updateTime"></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/charts.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+:root {
+    /* Colores base */
+    --primary-color: #4e73df;
+    --primary-hover: #3a5bd9;
+    --secondary-color: #858796;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+    
+    /* Colores de fondo */
+    --bg-color: #f8f9fa;
+    --card-color: #ffffff;
+    --card-hover: #f0f2f5;
+    
+    /* Colores de texto */
+    --text-color: #5a5c69;
+    --text-light: #858796;
+    --text-white: #ffffff;
+    
+    /* Sombras */
+    --shadow-sm: 0 0.15rem 0.5rem rgba(58, 59, 69, 0.1);
+    --shadow-md: 0 0.15rem 1.75rem rgba(58, 59, 69, 0.15);
+    --shadow-lg: 0 0.5rem 1.5rem rgba(58, 59, 69, 0.2);
+    
+    /* Bordes */
+    --border-radius: 0.35rem;
+    --border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-bs-theme="dark"] {
+    --primary-color: #4e73df;
+    --primary-hover: #5d8bff;
+    --secondary-color: #a1a3b5;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    
+    --bg-color: #1a1a2e;
+    --card-color: #16213e;
+    --card-hover: #1f2a4a;
+    
+    --text-color: #ffffff;
+    --text-light: #d1d3e2;
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos base */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Barra de navegación */
+.navbar {
+    box-shadow: var(--shadow-md);
+    padding: 0.75rem 1rem;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.05rem;
+}
+
+/* Tarjetas */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+    background-color: var(--card-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--card-hover);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--primary-color) !important;
+    color: var(--text-white);
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Tarjetas de estadísticas */
+.stat-card {
+    color: var(--text-white);
+    border: none;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius) !important;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.stat-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card .fa {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.stat-card:hover .fa {
+    opacity: 1;
+}
+
+/* Tablas */
+.table {
+    margin-bottom: 0;
+    color: var(--text-color);
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    z-index: 10;
+    border-bottom: none;
+    padding: 0.75rem 1rem;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(78, 115, 223, 0.1);
+}
+
+.table-hover tbody tr:hover {
+    color: var(--text-color);
+}
+
+/* Badges */
+.badge {
+    font-weight: 600;
+    padding: 0.35em 0.65em;
+    font-size: 0.85em;
+    letter-spacing: 0.05em;
+}
+
+/* Footer */
+footer {
+    box-shadow: 0 -0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+/* Animaciones */
+.animate__animated {
+    --animate-duration: 0.5s;
+}
+
+/* Scroll personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+
+/* Canvas de gráficos - Prevención de selección de texto y mejoras de renderizado */
+canvas {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    display: block; /* Elimina espacio inferior por defecto */
+    width: 100% !important; /* Asegura responsividad */
+    height: auto !important; /* Mantiene proporción */
+}
+
+/* Contenedor de gráficos */
+.chart-container {
+    position: relative;
+    height: 100%;
+    min-height: 300px;
+}
+
+/* Alertas */
+.alert {
+    border: none;
+    color: var(--text-white);
+}
+
+/* Botones */
+.btn-outline-light {
+    border-color: var(--text-light);
+    color: var(--text-light);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Efectos de carga */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Transiciones para el cambio de tema */
+.theme-transition * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
