@@ -2,8 +2,6 @@ from flask import Flask, render_template, jsonify
 from pymongo import MongoClient
 from sqlalchemy import create_engine
 import pandas as pd
-from sqlalchemy.exc import OperationalError
-from pymongo.errors import ConnectionFailure
 import sys
 
 app = Flask(__name__)
@@ -16,38 +14,11 @@ POSTGRES_URI = "postgresql://postgres:12345@localhost:5432/BDEXAMEN"
 mongo_client = None
 engine = None
 
-def verificar_conexiones():
-    """Verifica y muestra el estado de las conexiones en la terminal"""
-    global mongo_client, engine
-    
-    print("\n" + "="*50)
-    print(" VERIFICACIÓN DE CONEXIONES A BASES DE DATOS")
-    print("="*50)
-    
-    # Verificar MongoDB
-    try:
-        mongo_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
-        mongo_client.server_info()
-        print("✅ MongoDB: Conexión exitosa")
-    except Exception as e:
-        print(f"❌ MongoDB Error: {str(e)}")
-        mongo_client = None
-    
-    print("-"*50)
-    
-    # Verificar PostgreSQL
-    try:
-        engine = create_engine(POSTGRES_URI)
-        with engine.connect() as conn:
-            print("✅ PostgreSQL: Conexión exitosa")
-    except Exception as e:
-        print(f"❌ PostgreSQL Error: {str(e)}")
-        engine = None
-    
-    print("="*50 + "\n")
 
-# Establecer conexiones al iniciar
-verificar_conexiones()
+mongo_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+mongo_client.server_info()
+engine = create_engine(POSTGRES_URI)
+
 
 @app.route('/')
 def dashboard():
