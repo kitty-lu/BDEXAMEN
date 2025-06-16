@@ -3,3 +3,4 @@ pymongo
 SQLAlchemy
 python-dotenv
 pandas
+psycopg2
