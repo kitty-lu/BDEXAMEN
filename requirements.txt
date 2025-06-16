@@ -1,5 +1,5 @@
-Flask==2.3.2
-pymongo==4.3.3
-SQLAlchemy==2.0.19
-pandas==2.0.3
-python-dotenv==1.0.0
+Flask
+pymongo
+SQLAlchemy
+python-dotenv
+pandas
